@@ -2,9 +2,7 @@ const express = require('express');
 const routes = express.Router();
 
 module.exports = (passport) => {
-
-    console.log("Admin", passport);
-
+    
     routes.post('/', passport.authenticate('local', {
         successRedirect: '/admin', 
         failureRedirect: '/login',
