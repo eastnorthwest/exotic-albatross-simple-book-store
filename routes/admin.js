@@ -7,8 +7,8 @@ module.exports = (passport) => {
         failureRedirect: '/admin/login',
         failureFlash: true
     }), (req, res, next) => {
-        console.log('All ok after login');
-        res.render('admin/login');
+        console.log('ALL OK');
+        res.redirect('/admin');
     });
 
     router.get('/login', (req, res) => {
@@ -33,5 +33,6 @@ module.exports = (passport) => {
             res.render('admin/index');
         }
     })
+    
     return router;
 }
