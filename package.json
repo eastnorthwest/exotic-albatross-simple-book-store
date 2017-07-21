@@ -1,0 +1,36 @@
+{
+  "name": "exotic-albatross-simple-book-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "mocha test/books"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/eastnorthwest/exotic-albatross-simple-book-store.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eastnorthwest/exotic-albatross-simple-book-store/issues"
+  },
+  "homepage": "https://github.com/eastnorthwest/exotic-albatross-simple-book-store#readme",
+  "devDependencies": {
+    "eslint": "^4.2.0",
+    "eslint-config-google": "^0.9.1"
+  },
+  "dependencies": {
+    "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
+    "chai": "^4.1.0",
+    "chai-http": "^3.0.0",
+    "connect-flash": "^0.1.1",
+    "cookie-parser": "^1.4.3",
+    "express-session": "^1.15.4",
+    "mocha": "^3.4.2",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0"
+  }
+}
