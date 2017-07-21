@@ -15,13 +15,15 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 // setup sessions and passport
-app.use(session({'secret' : 'eastnorthwest'}));
+app.use(session({'secret' : 'eastnorthwest', resave: false, saveUninitialized: false }));
 app.use(passportSetup.initialize());
 app.use(passportSetup.session());
 app.use(flash());
 
 app.use('/books', bookRoutes);
 app.use('/admin', adminRoutes);
+
+app.use('/',express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
     res.send("BOOKSTORE");

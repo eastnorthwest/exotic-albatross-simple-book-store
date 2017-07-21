@@ -1,33 +1,37 @@
 const express = require('express');
-const routes = express.Router();
+const router = express.Router();
 
 module.exports = (passport) => {
-    
-    routes.post('/', passport.authenticate('local', {
-        successRedirect: '/admin', 
-        failureRedirect: '/login',
-        failureFlash: true
-    }));
 
-    routes.get('/login', (req, res) => {
+    router.post('/login', passport.authenticate('login', {
+        failureRedirect: '/admin/login',
+        failureFlash: true
+    }), (req, res, next) => {
+        console.log('All ok after login');
+        res.render('admin/login');
+    });
+
+    router.get('/login', (req, res) => {
+        console.log('show admin/login')
         res.render('admin/login', 
             {'loginMessage' : req.flash('loginMessage')}
         );
     });
 
-    routes.get('/logout', (req, res) => {
+    router.get('/logout', (req, res) => {
+        console.log('show admin/logout');
         req.logout();
-        res.redirect('/login');
+        res.redirect('/admin/login');
     });
 
-    routes.get('/', (req, res) => {
+    router.get('/', (req, res) => {
         if (!req.isAuthenticated()) {
             req.logout();
             req.flash('loginMessage', 'Session invalid.  Please login.');
-            res.redirect('/login');
+            res.redirect('/admin/login');
+        } else {
+            res.render('admin/index');
         }
-        res.render('admin/index');
-        }
-    )
-    return routes;
+    })
+    return router;
 }

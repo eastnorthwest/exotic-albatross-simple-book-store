@@ -6,16 +6,16 @@ const LocalStrategy = require('passport-local').Strategy;
 // https://stackoverflow.com/questions/27637609/understanding-passport-serialize-deserialize
 // http://toon.io/understanding-passportjs-authentication-flow/
 
-const Admin = require('../models/admin');
+const admin = require('../models/admin');
 
 passport.serializeUser((user, done) => {
     done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-    Admin.getById(id, (err, user) => {
+    admin.getById(id, (err, user) => {
         done(err, user);
-    })
+    });
 })
 
 passport.use('login', new LocalStrategy({
@@ -24,21 +24,18 @@ passport.use('login', new LocalStrategy({
     passReqToCallback : true 
 }, function(req, username, password, done) {
     var message = 'Admin login error.';
-    Admin.findById(username).then((err, result) => {
-        if (result && bcrypt.compareSync(password, result.password)) {
+    admin.getById(username).then((result) => {
+        if (result && bcrypt.compareSync(password, result.passwordHash)) {
             // success in login
+            console.log('okLogin', result)
             return done(null, result);
         } else {
             message = 'Invalid password';
         }
-        if (err) {
-            message = err.message;
-        }
         return done(null, false, req.flash('loginMessage', message));            
     }).catch((err) => {
-        
         if (err) {
-            message = err.message;
+            message = err;
         }
         return done(null, false,  req.flash('loginMessage', message));
     });
